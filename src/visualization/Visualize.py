@@ -22,7 +22,7 @@ def _plot_classification_report(val_y,predictions):
 
     return fig 
 
-def cm_analysis(y_true, y_pred, filename, labels, ymap=None, figsize=(10,10)):
+def cm_analysis(y_true, y_pred, filename, labels, ymap=None, figsize=(15,50)):
     if ymap is not None:
         y_pred = [ymap[yi] for yi in y_pred]
         y_true = [ymap[yi] for yi in y_true]
@@ -47,5 +47,6 @@ def cm_analysis(y_true, y_pred, filename, labels, ymap=None, figsize=(10,10)):
     cm.index.name = 'Actual'
     cm.columns.name = 'Predicted'
     fig, ax = plt.subplots(figsize=figsize)
-    sns.heatmap(cm, annot=annot, fmt='', ax=ax)
+    sns.heatmap(cm, annot=annot, fmt='', ax=ax,vmin=0, vmax=60)
+    plt.show()
     plt.savefig(filename,bbox_inches='tight')

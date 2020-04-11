@@ -10,12 +10,13 @@ gf.nyName(yle_data,'MitÃ¤ asioita haluat edistÃ¤Ã¤ tai ajaa tulevalla vaal
 gf.nyName(yle_data,'puolue','party')
 yle_data = gf.scandinavian_letters(yle_data)
 
-#2 DROP NA rows and party with n < 100
+#2 DROP NA rows, party with n < 100 and two swedish answers
 yle_data.dropna(axis=0,inplace=True)
 print(yle_data.groupby("party").count())
 filtered= yle_data.groupby('party').filter(lambda x: len(x) >= 150)
 yle_data_cut = yle_data[yle_data['party'].isin(filtered.party)]
 print(yle_data_cut.groupby("party").count())
+yle_data_cut = yle_data_cut[~yle_data_cut["work_for"].str.contains("löneklyftor|Kommunikationer")]
 
 #3 WRITE CLEANED DATA TO FOLDER
 yle_data_cut.to_csv("/home/chpatola/Desktop/Skola/Python/cookie_nlp/data/interim/cleaned_data.csv",index=False, encoding="ISO-8859-1")
