@@ -16,7 +16,7 @@ def train_model():
             ('prepro', word_model),
             ('model',MultinomialNB())])
         params = {'prepro__min_df':[1,2,3,5,6],
-                'prepro__max_df':[0.5,0.6,0.75,0.85,0.95],
+                'prepro__max_df':[0.75,0.85,0.95,0.98],
                 'prepro__ngram_range':[(1,1),(1,2),(1,3)]}
         grid = GridSearchCV(pipeline,param_grid=params,cv=5)
         fit_grid=grid.fit(train_X,train_y)
@@ -49,7 +49,7 @@ def train_model():
     y = yle_data.party
 
     #3. Divide in train and test
-    train_X, test_X, train_y, test_y = train_test_split(X, y,test_size = 0.3,random_state = 1,stratify =y)
+    train_X, test_X, train_y, test_y = train_test_split(X, y,test_size = 0.2,random_state = 2,stratify =y)
 
     #4. Bag of Words for train_X & evaluate performance
     bag,bag_results = testModel(train_X,train_y,CountVectorizer())

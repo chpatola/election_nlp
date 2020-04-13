@@ -20,21 +20,21 @@ import seaborn as sns
 from sklearn.metrics import accuracy_score
 
 #1. Test model and look into results
-val_X, val_y, bag, tf_idf = train_model.train_model()
+test_X, test_y, bag, tf_idf = train_model.train_model()
 
-print("Mean accurancy: {:.2f} %".format(100*bag.best_score_))
+print("Mean accurancy in validation: {:.2f} %".format(100*bag.best_score_))
 
-predictions =bag.predict(val_X)
-print("Predictions:\n {} \nTruth:\n {}".format(predictions[0:3],val_y[0:3]))
-print(val_X[0:3])
+predictions =bag.predict(test_X)
+print("Predictions:\n {} \nTruth:\n {}".format(predictions[0:3],test_y[0:3]))
+print(test_X[0:3])
 
 #2. Save classification report and confusion matrix to file
-classi_rep = Visualize._plot_classification_report(val_y,predictions)
+classi_rep = Visualize._plot_classification_report(test_y,predictions)
 classi_rep.savefig('/home/chpatola/Desktop/Skola/Python/cookie_nlp/reports/figures/classificationReport.png',bbox_inches='tight')
 
-parties= val_y.sort_values().unique()
-Visualize.cm_analysis(val_y,predictions,'/home/chpatola/Desktop/Skola/Python/cookie_nlp/reports/figures/confusion_matrix.png',labels=parties)
-print(confusion_matrix(val_y,predictions))
-print(classification_report(val_y,predictions))
-print(accuracy_score(val_y,predictions))
+parties= test_y.sort_values().unique()
+Visualize.cm_analysis(test_y,predictions,'/home/chpatola/Desktop/Skola/Python/cookie_nlp/reports/figures/confusion_matrix.png',labels=parties)
+print(confusion_matrix(test_y,predictions))
+print(classification_report(test_y,predictions))
+print("Accurancy in test: {:.2f} %".format(100*(accuracy_score(test_y,predictions))))
 
