@@ -1,3 +1,4 @@
+"""Visualizations for NLP analysis"""
 import pandas as pd
 import numpy as np
 from sklearn.metrics import classification_report
@@ -19,7 +20,6 @@ def _plot_classification_report(val_y,predictions):
              loc='center',
              bbox=[0.2, 0.2, 0.8, 0.8])
     fig.tight_layout()
-
     return fig 
 
 def cm_analysis(y_true, y_pred, filename, labels, ymap=None, figsize=(15,50)):
