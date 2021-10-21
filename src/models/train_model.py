@@ -8,8 +8,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
+from src.preparations import simplify_text
 
-def train_model():
+def train_model(base_path):
 
     def testModel(train_X, train_y, word_model):
         pipeline = Pipeline([
@@ -44,8 +45,10 @@ def train_model():
             print('\nFeatures with highest tfif(highest impact): \n {}'.format(
                 feature_names_s[sorted_max_val[:-10]]))
 
+    #0. Data preparation
+    simplify_text.simplify_text(base_path)
+
     #1. Import data
-    base_path='/home/chpatola/Desktop/Skola/Python/cookie_nlp/'
     yle_data = pd.read_csv(path.join(base_path,'data/processed/processed_data.csv'),
                            sep=',',
                            encoding="ISO-8859-1"
@@ -77,4 +80,6 @@ def train_model():
                                        )
     word_to_num_info(tf_idf)
     return test_X, test_y, bag, tf_idf
-    
+
+#train_model('/home/chpatola/Desktop/Skola/Python/cookie_nlp/')
+#print('success')    

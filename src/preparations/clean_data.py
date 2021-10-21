@@ -47,3 +47,6 @@ def clean_data(base_path):
         path.join(base_path,'data/interim/cleaned_data.csv'),
         index=False, encoding="ISO-8859-1"
         )
+
+#clean_data('/home/chpatola/Desktop/Skola/Python/cookie_nlp/')
+#print("success")

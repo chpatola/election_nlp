@@ -7,7 +7,7 @@ from src.visualizations import Visualize
 base_path ='/home/chpatola/Desktop/Skola/Python/cookie_nlp/'
 
 #1. Test model and look into results
-test_X, test_y, bag, tf_idf = train_model.train_model()
+test_X, test_y, bag, tf_idf = train_model.train_model(base_path)
 
 print("Mean accurancy in validation: {:.2f} %".format(100*bag.best_score_))
 

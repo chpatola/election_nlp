@@ -15,7 +15,6 @@ from src.preparations import clean_data
 #https://towardsdatascience.com/nlp-for-beginners-cleaning-preprocessing-text-data-ae8e306bef0f
 #https://medium.com/@rrfd/cookiecutter-data-science-organize-your-projects-atom-and-jupyter-2be7862f487e
 
-base_path='/home/chpatola/Desktop/Skola/Python/cookie_nlp/'
 
 def simplify_sentences(text):
     tokenizer = RegexpTokenizer('\w+|\$[\d\.]+|\S+') #splits up by spaces or by periods, not attached to a digit
@@ -26,7 +25,7 @@ def simplify_sentences(text):
     return newtext
 
 def wordfreqdf(df):
-    corpus = st.CorpusFromPandas(yle_data,
+    corpus = st.CorpusFromPandas(df,
                                  category_col='party',
                                  text_col='work_for',
                                  nlp=nlp).build()
@@ -46,30 +45,34 @@ def wordfreqdf(df):
     result_df.set_index("Party", inplace=True)
     return result_df  
 
-#0. Basic Data Cleaning
-clean_data.clean_data(base_path)
+def simplify_text(base_path):
+    #0. Basic Data Cleaning
+    clean_data.clean_data(base_path)
 
-#1. Import data 
-yle_data = pd.read_csv(path.join(base_path,'data/interim/cleaned_data.csv'),
-                       sep=',',
-                       encoding="ISO-8859-1"
-                       )
+    #1. Import data 
+    yle_data = pd.read_csv(path.join(base_path,'data/interim/cleaned_data.csv'),
+                        sep=',',
+                        encoding="ISO-8859-1"
+                        )
 
-#2. Preprocess sentences
-yle_data["work_for"] = yle_data["work_for"].apply(
-        lambda x: simplify_sentences(x)
-        )
-yle_data.head(5)
+    #2. Preprocess sentences
+    yle_data["work_for"] = yle_data["work_for"].apply(
+            lambda x: simplify_sentences(x)
+            )
+    yle_data.head(5)
 
-# 3. Write processed data to folder
-yle_data.to_csv(path.join(base_path,'data/processed/processed_data.csv'),
-                index=False,
-                encoding="ISO-8859-1"
-                )
+    # 3. Write processed data to folder
+    yle_data.to_csv(path.join(base_path,'data/processed/processed_data.csv'),
+                    index=False,
+                    encoding="ISO-8859-1"
+                    )
 
-#4. Get insights into 6 most typical words for each party
-party_word_freq = wordfreqdf(yle_data)
-party_word_freq.to_csv(path.join(base_path,'reports/party_word_freq.csv'),
-                       sep=',',
-                       encoding="ISO-8859-1"
-                       )
+    #4. Get insights into 6 most typical words for each party
+    party_word_freq = wordfreqdf(yle_data)
+    party_word_freq.to_csv(path.join(base_path,'reports/party_word_freq.csv'),
+                        sep=',',
+                        encoding="ISO-8859-1"
+                        )
+
+#simplify_text('/home/chpatola/Desktop/Skola/Python/cookie_nlp/')
+#print('success')
