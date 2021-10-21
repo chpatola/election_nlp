@@ -1,4 +1,5 @@
 """Train model functionality"""
+from os import path
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -44,8 +45,8 @@ def train_model():
                 feature_names_s[sorted_max_val[:-10]]))
 
     #1. Import data
-    path = '/home/chpatola/Desktop/Skola/Python/cookie_nlp/data/processed/processed_data.csv'
-    yle_data = pd.read_csv(path,
+    base_path='/home/chpatola/Desktop/Skola/Python/cookie_nlp/'
+    yle_data = pd.read_csv(path.join(base_path,'data/processed/processed_data.csv'),
                            sep=',',
                            encoding="ISO-8859-1"
                            )
