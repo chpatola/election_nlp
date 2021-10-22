@@ -19,10 +19,12 @@ conda create --name <env> --file requirement.txt
   
 conda activate <env>  
 ```
- 
-4. Run the code from the file predict_model.py.
+
+4. Set your base path at line 7 in predict_model.py
+
+5. Run the code from the file predict_model.py.
   
   ```
   python predict_model.py
   ```
-5. The programme will print some output of the analysis but you will also find results in the reports folder: https://github.com/chpatola/election_nlp/tree/master/reports
+6. The programme will print some output of the analysis but you will also find results in the reports folder: https://github.com/chpatola/election_nlp/tree/master/reports
